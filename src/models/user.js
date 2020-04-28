@@ -49,6 +49,8 @@ const userSchema = new mongoose.Schema({
             require: true
         }
     }]
+},{
+    timestamps: true
 })
 
 // Hide properties of Mongoose objects in Node.JS JSON responses 
