@@ -16,12 +16,34 @@ router.post('/tasks', auth, async (req,res)=>{
     }
 })
 
+// GET /tasks?completd=true,false
+// GET /tasks?limit=num&&skip=num
 router.get('/tasks', auth, async (req,res)=>{
     try {
-        const tasks = await Task.find({author: req.user._id})
-        res.send(tasks)  // OR
-        // await req.user.populate('tasks').execPopulate()
-        // res.send(req.user.tasks)
+        // const tasks = await Task.find({author: req.user._id})
+        // res.send(tasks)  // OR
+
+        const match = {} // completed is a propert of match object
+        const sort = {}
+        
+        if (req.query.completed) {
+            match.completed = req.query.completed
+        }
+
+        if (req.query.sortBy) {
+            match.completed = req.query.completed
+        }
+
+        await req.user.populate({
+            path: "tasks",
+            match: match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort: sort
+            }
+        }).execPopulate()
+        res.send(req.user.tasks)
     } catch (error) {
         res.status(500).send(error)
     }
