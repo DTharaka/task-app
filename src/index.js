@@ -6,21 +6,8 @@ const taskRouter = require('./routers/task')
 const app = express()
 app.use(express.json())  // For get data which we pass
 
-//********************MIDDLEWARE********************//
-// without middleware: new request -> run route handle
-//
-//with middleware: new request -> do something -> run route handle
-//
-
-// app.use((req,res,next)=>{
-//     console.log(req.method,req.path)
-//     next()
-// }) 
-
 app.use(userRouter)
 app.use(taskRouter)
-
-
 
 //**********HASHING PASSWORD BY BCRYPTJS**********//
 // const bcrypt = require('bcryptjs')
@@ -51,9 +38,37 @@ app.use(taskRouter)
 
 // myFunction()
 
+// Working with multer package
+// const multer = require('multer');
+// const upload = multer({
+//     dest: 'images',
+//     limits: {
+//         fileSize: 1000000
+//     },
+//     fileFilter(req, file, cb){
+        // cb(new Error('File must be in PDF format'))
+        // cb(undefined,true)
+        // cb(undefined,false)
+        // if (!file.originalname.endsWith('.pdf')) {
+        //     return cb(new Error('Please upload a PDF'))
+        // }
+        // cb(undefined,true)
+        // if(!file.originalname.match(/\.(doc|docx)$/)){
+        //     return cb(new Error('Please upload a Word Document'))
+        // }
+        // cb(undefined,true)
+//     }
+// })
 
+// const errorMiddleware = (req,res,next)=>{
+//     throw new Error('From my middleware');
+// }
 
-
+// app.post('/upload',upload.single('upload'),(req,res)=>{
+//     res.send()
+// },(error,req,res,next)=>{
+//     res.status(400).send({error: error.message})
+// })
 
 
 // Connection to server

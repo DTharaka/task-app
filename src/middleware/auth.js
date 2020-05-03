@@ -1,3 +1,9 @@
+//********************MIDDLEWARE********************//
+// without middleware: new request -> run route handle
+//
+//with middleware: new request -> do something -> run route handle
+//
+
 // Going to add authentication for delete,get and update user data
 
 const jwt = require('jsonwebtoken')
